@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0; /* Light gray background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%; /* Adjusted to responsive width */
+            max-width: 1200px; /* Max width for large screens */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            animation: slide-up 0.5s ease;
+        }
+        @keyframes slide-up {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        h1, h2 {
+            color: #333;
+            margin-bottom: 10px; /* Add spacing between headings and content */
+        }
+        .filter-form {
+            margin: 20px 0;
+            text-align: center;
+        }
+        label {
+            margin-right: 10px;
+            color: #555;
+        }
+        input {
+            padding: 12px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            width: 200px; /* Adjusted input width */
+        }
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        button {
+            padding: 12px 20px; /* Increased padding for better click area */
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-left: 10px; /* Added margin for separation */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .clear-filter {
+            text-align: center;
+            margin-top: 20px; /* Added top margin */
+        }
+        .clear-filter a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .clear-filter a:hover {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Courses List</h1>
+
+    <div class="clear-filter">
+        <a href="/home">Clear Filters and Go Back to Home</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Course Number</th>
+            <th>Course Name</th>
+            <th>Category</th>
+            <th>Course Time</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.courseId}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.category}"></td> <!-- Corrected variable name -->
+            <td th:text="${course.courseTime}"></td>
+            <td th:text="${course.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

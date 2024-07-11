@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 520px;
+            max-width: 90%;
+            text-align: center;
+            animation: slide-up 0.5s ease;
+        }
+        @keyframes slide-up {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .login-container input[type="text"]:focus,
+        .login-container input[type="password"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .login-container button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-container button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .login-container .register-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Login</h2>
+    <form th:action="@{/userLogin}" th:object="${user}" method="post">
+        <input type="text" th:field="*{userName}" placeholder="Username" required>
+        <br><br>
+        <input type="password" th:field="*{password}" placeholder="Password" required>
+        <br><br>
+        <button type="submit">Login</button>
+        <br><br>
+        <a href="/forgotPassword" class="register-link">Forgot Password?</a>
+        <br><br>
+        <a href="/register" class="register-link">Don't have an account? Register</a>
+    </form>
+    <div th:if="${message}" class="error-message" th:text="${message}"></div>
+</div>
+</body>
+</html>

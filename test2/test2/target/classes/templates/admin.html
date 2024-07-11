@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS Admin Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #007bff;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            max-width: 80%;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            text-align: left;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .actions {
+            white-space: nowrap;
+        }
+        .actions .delete-btn, .actions .update-btn {
+            padding: 8px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .actions .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+        .actions .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .actions .update-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+        }
+        .actions .update-btn:hover {
+            background-color: #218838;
+        }
+        .clear-filter {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .clear-filter a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .clear-filter a:hover {
+            color: #0056b3;
+        }
+
+        /* Style for Add New Course button */
+        .btn-add-course {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-add-course:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Admin View, Welcome to LMS</h1>
+    <a th:href="@{/addNewCourse}" class="btn-add-course">Add New Course</a>
+</div>
+
+<div class="container" id="listCourses">
+    <h1>Admin Dashboard - List of Courses</h1>
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Category</th>
+                <th>Course Duration</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.courseId}"></td>
+                <td th:text="${course.courseName}"></td>
+                <td th:text="${course.category}"></td>
+                <td th:text="${course.courseTime}"></td>
+                <td th:text="${course.description}"></td>
+                <td class="actions">
+                    <form method="post" th:action="@{/deleteCourse}" style="display: inline-block;">
+                        <input type="hidden" name="courseId" th:value="${course.courseId}">
+                        <button type="submit" class="delete-btn">DELETE</button>
+                    </form>
+                    <a th:href="@{/updateCourse/{id}(id=${course.courseId})}" class="update-btn">UPDATE</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
